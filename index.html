@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maximal Entertainment | Film Production &amp; Creative Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg: #0a0a0c;
+    --bg-alt: #121215;
+    --bg-raised: #16161a;
+    --card: #1a1a1e;
+    --card-border: rgba(244,241,234,0.08);
+    --card-border-hover: rgba(200,162,74,0.4);
+    --text: #f2efe9;
+    --text-dim: #a6a39d;
+    --text-faint: #6f6c68;
+    --gold: #c8a24a;
+    --gold-bright: #e3c177;
+    --red: #8a3232;
+    --red-bright: #b54848;
+    --silver: #9a9a9e;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --container: 1180px;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;}
+
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 28px;}
+
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:400;
+    letter-spacing:0.5px;
+    line-height:1.05;
+  }
+
+  .eyebrow{
+    font-family:var(--font-body);
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  .section{padding:108px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(34px,4.5vw,52px);margin-bottom:18px;}
+  .section-head p{color:var(--text-dim);font-size:16.5px;}
+  .section-alt{background:var(--bg-alt);}
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 28px;
+    border-radius:999px;
+    font-size:14px;font-weight:600;
+    letter-spacing:0.4px;
+    border:1px solid transparent;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-gold{background:var(--gold);color:#16140d;}
+  .btn-gold:hover{background:var(--gold-bright);transform:translateY(-2px);}
+  .btn-ghost{border-color:rgba(244,241,234,0.25);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-bright);transform:translateY(-2px);}
+  .btn-sm{padding:10px 20px;font-size:13px;}
+  .btn-block{width:100%;}
+
+  /* ============ HEADER ============ */
+  .site-header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,10,12,0.86);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--container);margin:0 auto;
+  }
+  .brand{display:flex;flex-direction:column;line-height:1;}
+  .brand-name{
+    font-family:var(--font-display);
+    font-size:26px;letter-spacing:1.5px;
+    color:var(--text);
+  }
+  .brand-name span{color:var(--gold);}
+  .brand-tag{
+    font-size:10px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--text-faint);margin-top:4px;
+  }
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a:not(.btn){
+    font-size:13.5px;font-weight:500;letter-spacing:0.3px;
+    color:var(--text-dim);
+    position:relative;
+    padding:4px 0;
+    transition:color .2s ease;
+  }
+  .nav-links a:not(.btn):hover{color:var(--text);}
+  .nav-links a:not(.btn)::after{
+    content:"";position:absolute;left:0;bottom:-4px;
+    width:0;height:1px;background:var(--gold);
+    transition:width .25s ease;
+  }
+  .nav-links a:not(.btn):hover::after{width:100%;}
+  .nav-cta{margin-left:10px;}
+
+  .menu-toggle{
+    display:none;flex-direction:column;gap:5px;
+    background:none;border:none;padding:8px;
+  }
+  .menu-toggle span{width:24px;height:2px;background:var(--text);display:block;transition:transform .25s ease, opacity .25s ease;}
+  .menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-toggle.active span:nth-child(2){opacity:0;}
+  .menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:96px 0 70px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% 10%, rgba(138,50,50,0.18), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(200,162,74,0.10), transparent 60%),
+      var(--bg);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--text-faint);margin-bottom:22px;
+  }
+  .hero-eyebrow strong{color:var(--gold);font-weight:600;}
+  .hero h1{
+    font-size:clamp(42px,5.6vw,68px);
+    color:var(--text);
+    margin-bottom:24px;
+  }
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .hero p.lede{
+    font-size:17.5px;color:var(--text-dim);
+    max-width:520px;margin-bottom:36px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+
+  .hero-visual{
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    aspect-ratio:1/1;
+  }
+  .reel-ring{
+    position:absolute;inset:0;
+    border-radius:50%;
+  }
+  .countdown-wrap{
+    position:relative;width:100%;max-width:380px;
+  }
+  .grain-disc{
+    position:absolute;inset:0;border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-top:80px;
+  }
+  .stat-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-sm);
+    padding:22px 20px;
+    text-align:left;
+  }
+  .stat-card .num{font-family:var(--font-display);font-size:28px;color:var(--gold-bright);letter-spacing:1px;}
+  .stat-card .label{font-size:12.5px;color:var(--text-dim);margin-top:4px;letter-spacing:0.3px;}
+
+  /* ============ ABOUT ============ */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:start;
+  }
+  .about-copy p{color:var(--text-dim);margin-bottom:18px;font-size:15.5px;}
+  .about-copy p strong{color:var(--text);font-weight:600;}
+  .legacy-note{
+    margin-top:24px;
+    font-size:13px;color:var(--text-faint);
+    border-left:2px solid var(--gold);
+    padding-left:14px;
+  }
+  .pillars{display:flex;flex-direction:column;gap:18px;}
+  .pillar{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:24px 26px;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .pillar:hover{border-color:var(--card-border-hover);transform:translateX(4px);}
+  .pillar h3{font-size:19px;font-weight:600;font-family:var(--font-body);color:var(--text);margin-bottom:8px;letter-spacing:0.2px;}
+  .pillar p{font-size:14px;color:var(--text-dim);}
+
+  /* ============ FILMS ============ */
+  .film-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .film-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    display:flex;flex-direction:column;
+  }
+  .film-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--card-border-hover);
+    box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .film-poster{
+    position:relative;
+    aspect-ratio:2/3;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .film-poster::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+  .film-poster svg{width:46px;height:46px;opacity:0.5;position:relative;z-index:1;}
+  .badge{
+    position:absolute;top:14px;left:14px;z-index:2;
+    font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+  .badge-screening{background:rgba(200,162,74,0.18);color:var(--gold-bright);border:1px solid rgba(200,162,74,0.4);}
+  .badge-soon{background:rgba(154,154,158,0.16);color:var(--silver);border:1px solid rgba(154,154,158,0.35);}
+  .badge-funding{background:rgba(138,50,50,0.22);color:#d68a8a;border:1px solid rgba(138,50,50,0.5);}
+  .badge-trailer{background:rgba(244,241,234,0.08);color:var(--text-dim);border:1px solid var(--card-border);}
+  .badge-dev{background:rgba(200,162,74,0.08);color:var(--text-dim);border:1px solid var(--card-border);}
+
+  .film-body{padding:20px 22px 24px;flex:1;display:flex;flex-direction:column;}
+  .film-title{font-family:var(--font-display);font-size:22px;letter-spacing:0.5px;color:var(--text);}
+  .film-year{font-size:12px;color:var(--text-faint);margin:4px 0 12px;letter-spacing:0.5px;}
+  .film-desc{font-size:13.5px;color:var(--text-dim);margin-bottom:20px;flex:1;}
+  .film-actions{display:flex;gap:10px;}
+  .film-actions .btn{flex:1;padding:10px 14px;font-size:12.5px;}
+
+  /* poster gradient variants */
+  .poster-1{background:linear-gradient(155deg,#2a1414,#0a0a0c 70%);}
+  .poster-2{background:linear-gradient(155deg,#1c1c20,#0a0a0c 70%);}
+  .poster-3{background:linear-gradient(155deg,#241c10,#0a0a0c 70%);}
+  .poster-4{background:linear-gradient(155deg,#15181c,#0a0a0c 70%);}
+  .poster-5{background:linear-gradient(155deg,#231417,#0a0a0c 70%);}
+  .poster-6{background:linear-gradient(155deg,#1a1f1c,#0a0a0c 70%);}
+  .poster-7{background:linear-gradient(155deg,#221c2a,#0a0a0c 70%);}
+  .poster-8{background:linear-gradient(155deg,#2a2010,#0a0a0c 70%);}
+  .poster-9{background:linear-gradient(155deg,#161c22,#0a0a0c 70%);}
+
+  /* ============ FUNDING ============ */
+  .funding-intro{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+    margin-bottom:44px;flex-wrap:wrap;
+  }
+  .funding-tags{display:flex;flex-wrap:wrap;gap:9px;max-width:480px;}
+  .funding-tags span{
+    font-size:12px;color:var(--text-dim);
+    border:1px solid var(--card-border);
+    padding:7px 14px;border-radius:999px;
+  }
+  .funding-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .funding-card{
+    background:linear-gradient(180deg, var(--bg-raised), var(--card));
+    border:1px solid var(--card-border);
+    border-top:2px solid var(--gold);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    display:flex;flex-direction:column;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .funding-card:hover{transform:translateY(-5px);}
+  .funding-card h3{font-family:var(--font-body);font-weight:600;font-size:19px;margin-bottom:12px;}
+  .funding-card p{font-size:14px;color:var(--text-dim);margin-bottom:18px;flex:1;}
+  .funding-status{
+    font-size:11.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:20px;
+  }
+
+  /* ============ SERVICES ============ */
+  .service-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+  }
+  .service-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:28px 24px;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .service-card:hover{border-color:var(--card-border-hover);transform:translateY(-4px);}
+  .service-icon{
+    width:42px;height:42px;border-radius:10px;
+    background:rgba(200,162,74,0.1);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+  }
+  .service-icon svg{width:21px;height:21px;stroke:var(--gold);}
+  .service-card h3{font-size:16.5px;font-family:var(--font-body);font-weight:600;margin-bottom:8px;}
+  .service-card p{font-size:13.5px;color:var(--text-dim);}
+
+  /* ============ TRAILERS ============ */
+  .trailer-featured{
+    background:var(--bg-raised);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:36px;
+    display:grid;grid-template-columns:1.3fr 1fr;
+  }
+  .trailer-screen{
+    position:relative;aspect-ratio:16/9;
+    background:radial-gradient(ellipse at center, #1c1c20, #0a0a0c 75%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .play-btn{
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(244,241,234,0.08);
+    border:1px solid rgba(244,241,234,0.25);
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .trailer-screen:hover .play-btn{background:var(--gold);transform:scale(1.06);}
+  .trailer-screen:hover .play-btn svg{stroke:#16140d;fill:#16140d;}
+  .play-btn svg{width:20px;height:20px;fill:var(--text);stroke:var(--text);margin-left:3px;}
+  .placeholder-tag{
+    position:absolute;bottom:18px;left:18px;
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);
+  }
+  .trailer-info{padding:34px 32px;display:flex;flex-direction:column;justify-content:center;}
+  .trailer-info .eyebrow{margin-bottom:14px;}
+  .trailer-info h3{font-family:var(--font-display);font-size:30px;margin-bottom:10px;letter-spacing:0.5px;}
+  .trailer-info p{font-size:14px;color:var(--text-dim);margin-bottom:24px;}
+
+  .trailer-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .trailer-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .trailer-card:hover{transform:translateY(-4px);border-color:var(--card-border-hover);}
+  .trailer-thumb{
+    aspect-ratio:16/9;
+    background:linear-gradient(155deg,#1c1c20,#0a0a0c 75%);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .trailer-thumb .play-btn{width:44px;height:44px;}
+  .trailer-thumb .play-btn svg{width:14px;height:14px;}
+  .trailer-card-body{padding:18px 20px 22px;}
+  .trailer-card-body h4{font-family:var(--font-display);font-size:19px;letter-spacing:0.4px;margin-bottom:3px;}
+  .trailer-card-body .yr{font-size:11.5px;color:var(--text-faint);margin-bottom:10px;}
+  .trailer-card-body .credit{font-size:12px;color:var(--text-dim);margin-bottom:14px;}
+
+  /* ============ MUSIC ============ */
+  .music-section{
+    background:
+      radial-gradient(ellipse 700px 400px at 90% 0%, rgba(138,50,50,0.12), transparent 60%),
+      var(--bg-alt);
+  }
+  .music-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .music-card{
+    text-align:left;
+    padding:30px 24px;
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    background:var(--bg-raised);
+  }
+  .music-card .note{font-family:var(--font-display);font-size:34px;color:var(--red-bright);margin-bottom:14px;display:block;}
+  .music-card h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+  .music-card p{font-size:13.5px;color:var(--text-dim);}
+
+  /* ============ CAREERS ============ */
+  .careers-band{
+    background:linear-gradient(120deg, rgba(200,162,74,0.08), rgba(138,50,50,0.08));
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:56px 56px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:40px;flex-wrap:wrap;
+  }
+  .careers-band h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:10px;}
+  .careers-band p{color:var(--text-dim);font-size:15px;max-width:520px;}
+  .careers-text{flex:1;min-width:280px;}
+
+  /* ============ CONTACT ============ */
+  .contact-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;}
+  .contact-info h2{font-size:clamp(30px,4vw,42px);margin-bottom:18px;}
+  .contact-info > p{color:var(--text-dim);font-size:15px;margin-bottom:32px;}
+  .contact-block{margin-bottom:26px;}
+  .contact-block .label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .contact-block .value{font-size:15px;color:var(--text);}
+  .contact-block .value a:hover{color:var(--gold-bright);}
+
+  .form-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:36px;
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+  .field label{font-size:12px;letter-spacing:0.5px;color:var(--text-dim);}
+  .field input,.field select,.field textarea{
+    background:var(--bg-alt);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-sm);
+    padding:12px 14px;
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:14px;
+    transition:border-color .2s ease;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--gold);
+  }
+  .field textarea{resize:vertical;min-height:110px;}
+
+  /* ============ FOOTER ============ */
+  .site-footer{
+    background:var(--bg-alt);
+    border-top:1px solid var(--card-border);
+    padding:64px 0 28px;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;
+    padding-bottom:40px;
+    border-bottom:1px solid var(--card-border);
+  }
+  .footer-brand .brand-name{margin-bottom:8px;}
+  .footer-brand p{font-size:13px;color:var(--text-faint);max-width:300px;margin-top:10px;}
+  .footer-col h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;}
+  .footer-col ul{display:flex;flex-direction:column;gap:11px;}
+  .footer-col a{font-size:13.5px;color:var(--text-faint);transition:color .2s ease;}
+  .footer-col a:hover{color:var(--gold-bright);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:26px;flex-wrap:wrap;gap:10px;
+  }
+  .footer-bottom p{font-size:12.5px;color:var(--text-faint);}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{max-width:300px;margin:0 auto;order:-1;}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .film-grid{grid-template-columns:repeat(2,1fr);}
+    .funding-grid{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .trailer-featured{grid-template-columns:1fr;}
+    .trailer-grid{grid-template-columns:repeat(2,1fr);}
+    .music-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+  }
+
+  @media (max-width:760px){
+    .nav-links{
+      position:fixed;top:69px;left:0;right:0;
+      flex-direction:column;align-items:flex-start;
+      background:rgba(10,10,12,0.98);
+      padding:24px 28px 32px;
+      border-bottom:1px solid var(--card-border);
+      transform:translateY(-12px);
+      opacity:0;visibility:hidden;
+      transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+      gap:20px;
+    }
+    .nav-links.open{opacity:1;visibility:visible;transform:translateY(0);}
+    .nav-cta{margin-left:0;margin-top:4px;}
+    .menu-toggle{display:flex;}
+    .section{padding:72px 0;}
+    .film-grid,.service-grid,.trailer-grid,.music-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;gap:30px;}
+    .careers-band{padding:40px 28px;}
+    .funding-intro{align-items:flex-start;}
+    .stat-row{grid-template-columns:1fr 1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#home" class="brand">
+      <span class="brand-name">MAXIMAL <span>ENTERTAINMENT</span></span>
+      <span class="brand-tag">Film Production &amp; Creative Media</span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#films" class="nav-link">Films</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#trailers" class="nav-link">Trailers</a></li>
+        <li><a href="#funding" class="nav-link">Funding</a></li>
+        <li><a href="#contact" class="nav-link nav-cta btn btn-gold btn-sm">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="hero-eyebrow">Maximal Entertainment, LLC &nbsp;&middot;&nbsp; <strong>Formerly NiterBoys Entertainment</strong></div>
+          <h1>Independent Film Production, Creative Media &amp; <em>Entertainment Storytelling</em></h1>
+          <p class="lede">Maximal Entertainment develops, produces, and supports film, video, commercial, and music-driven projects with a focus on bold stories and professional production value.</p>
+          <div class="hero-ctas">
+            <a href="#films" class="btn btn-gold">View Films</a>
+            <a href="#contact" class="btn btn-ghost">Contact Production Team</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="countdown-wrap">
+            <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Film countdown leader graphic">
+              <circle cx="200" cy="200" r="188" fill="none" stroke="rgba(244,241,234,0.08)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(200,162,74,0.3)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="150" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="6 10" stroke-linecap="round"/>
+              <g stroke="rgba(244,241,234,0.35)" stroke-width="1.5">
+                <line x1="200" y1="14" x2="200" y2="38"/>
+                <line x1="200" y1="362" x2="200" y2="386"/>
+                <line x1="14" y1="200" x2="38" y2="200"/>
+                <line x1="362" y1="200" x2="386" y2="200"/>
+              </g>
+              <line x1="200" y1="200" x2="200" y2="60" stroke="var(--red-bright)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="200" y1="200" x2="305" y2="270" stroke="rgba(244,241,234,0.5)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="200" cy="200" r="6" fill="var(--gold)"/>
+              <text x="200" y="222" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="86" fill="#f2efe9" opacity="0.92">8</text>
+            </svg>
+            <div class="grain-disc"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="num">06+</div><div class="label">Feature Films</div></div>
+        <div class="stat-card"><div class="num">MV</div><div class="label">Music Videos</div></div>
+        <div class="stat-card"><div class="num">CM</div><div class="label">Commercials</div></div>
+        <div class="stat-card"><div class="num">360°</div><div class="label">Production Services</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-copy">
+          <div class="eyebrow">About the Studio</div>
+          <h2 style="font-size:clamp(32px,4vw,46px); margin-bottom:24px;">Six Decades of Combined Filmmaking Experience</h2>
+          <p><strong>Maximal Entertainment, LLC</strong> — formerly known as NiterBoys Entertainment, LLC — is a film and entertainment production company based in South Florida. The team brings together more than sixty years of combined experience across film and music, including film school graduates, cinematographers, an acting coach, actors, graphic artists, musicians, and music producers.</p>
+          <p>To date, the company has produced numerous music videos, commercials, and short and feature films — working alongside partner production companies to bring stories to the screen, with several feature films already complete and additional original projects currently in development.</p>
+          <div class="legacy-note">Formerly known as NiterBoys Entertainment.</div>
+        </div>
+        <div class="pillars">
+          <div class="pillar">
+            <h3>Story-Driven Production</h3>
+            <p>Every project starts with character and narrative — production value is built to serve the story, not overshadow it.</p>
+          </div>
+          <div class="pillar">
+            <h3>Film &amp; Media Experience</h3>
+            <p>A multidisciplinary team spanning cinematography, editing, scoring, and casting, shaped by decades on real productions.</p>
+          </div>
+          <div class="pillar">
+            <h3>Creative Collaboration</h3>
+            <p>Long-standing partnerships with co-production companies, crews, and artists who share a commitment to craft.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILMS ============ -->
+  <section id="films" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Portfolio</div>
+        <h2>Films &amp; Projects</h2>
+        <p>A selection of completed features, trailers in release, and original screenplays currently moving through development.</p>
+      </div>
+
+      <div class="film-grid">
+
+        <article class="film-card">
+          <div class="film-poster poster-1"><span class="badge badge-screening">Screening Now</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">DOUB6</div>
+            <div class="film-year">2022 &middot; Feature Film</div>
+            <p class="film-desc">A contemporary feature now available to audiences, produced in association with partner production companies.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-2"><span class="badge badge-screening">Screening Now</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">MIAMI 13</div>
+            <div class="film-year">2013 &middot; Feature Film</div>
+            <p class="film-desc">A completed feature film delivered with full HD production value, shot on location in South Florida.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-3"><span class="badge badge-trailer">Trailer Available</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">BAGHDAD</div>
+            <div class="film-year">2011 &middot; Feature Film</div>
+            <p class="film-desc">A completed dramatic feature, produced in association with partner production companies.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-4"><span class="badge badge-trailer">Trailer Available</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">THE FORGOTTEN FATHER</div>
+            <div class="film-year">2009 &middot; Feature Film</div>
+            <p class="film-desc">A completed drama exploring family and legacy, produced for theatrical and home release.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-5"><span class="badge badge-trailer">Trailer Available</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">BRIANNA</div>
+            <div class="film-year">2008 &middot; Feature Film</div>
+            <p class="film-desc">An early feature production marking one of the studio's first theatrical releases.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-6"><span class="badge badge-trailer">Trailer Available</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 6l3-3h4l-2 3M11 6l3-3h4l-2 3"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">DISTURBED</div>
+            <div class="film-year">2007 &middot; Feature Film</div>
+            <p class="film-desc">A completed psychological feature, among the studio's foundational productions.</p>
+            <div class="film-actions"><a href="#" class="btn btn-ghost">View Details</a><a href="#trailers" class="btn btn-gold">Watch Trailer</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-7"><span class="badge badge-dev">In Development</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><path d="M4 19V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M13 3v5h5"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">WITH'SIN</div>
+            <div class="film-year">Screenplay &middot; Feature Film</div>
+            <p class="film-desc">An original screenplay currently in development, open to production funding and partnership.</p>
+            <div class="film-actions"><a href="#funding" class="btn btn-ghost">View Details</a><a href="#funding" class="btn btn-gold">Discuss Funding</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-8"><span class="badge badge-funding">Seeking Funding</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><path d="M4 19V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M13 3v5h5"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">SONG OF ORPHEUS</div>
+            <div class="film-year">Screenplay &middot; Feature Film</div>
+            <p class="film-desc">One of eight original screenplays currently seeking production funding and creative partners.</p>
+            <div class="film-actions"><a href="#funding" class="btn btn-ghost">View Details</a><a href="#funding" class="btn btn-gold">Discuss Funding</a></div>
+          </div>
+        </article>
+
+        <article class="film-card">
+          <div class="film-poster poster-9"><span class="badge badge-soon">Coming Soon</span><svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.4"><path d="M4 19V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M13 3v5h5"/></svg></div>
+          <div class="film-body">
+            <div class="film-title">A HAUNTED HOLLOW</div>
+            <div class="film-year">Screenplay &middot; Feature Film</div>
+            <p class="film-desc">An upcoming project moving toward production, part of the studio's active development slate.</p>
+            <div class="film-actions"><a href="#funding" class="btn btn-ghost">View Details</a><a href="#funding" class="btn btn-gold">Discuss Funding</a></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUNDING ============ -->
+  <section id="funding" class="section">
+    <div class="wrap">
+      <div class="funding-intro">
+        <div class="section-head" style="margin-bottom:0;">
+          <div class="eyebrow">Projects in Development</div>
+          <h2>Open for Funding &amp; Partnership</h2>
+          <p>Maximal Entertainment has several film and media projects open for funding, production partnerships, and creative collaboration.</p>
+        </div>
+        <div class="funding-tags">
+          <span>WITH'SIN</span><span>BAD CASTING</span><span>SONG OF ORPHEUS</span>
+          <span>A HAUNTED HOLLOW</span><span>AMNESIA</span><span>MACAQUE</span>
+        </div>
+      </div>
+
+      <div class="funding-grid">
+        <div class="funding-card">
+          <h3>Feature Film Development</h3>
+          <div class="funding-status">Seeking Funding</div>
+          <p>A slate of original feature-length screenplays ready to move into pre-production, pending financing and co-production partners.</p>
+          <a href="#contact" class="btn btn-gold btn-block">Discuss Opportunity</a>
+        </div>
+        <div class="funding-card">
+          <h3>Short Film Production</h3>
+          <div class="funding-status">Open for Partnership</div>
+          <p>Compact, story-driven short film projects suited to festival circuits, brand collaborations, and emerging talent showcases.</p>
+          <a href="#contact" class="btn btn-gold btn-block">Discuss Opportunity</a>
+        </div>
+        <div class="funding-card">
+          <h3>Commercial &amp; Music Video Projects</h3>
+          <div class="funding-status">Accepting Inquiries</div>
+          <p>Production support for brand commercials and music videos, from concept through final delivery, on film or HD format.</p>
+          <a href="#contact" class="btn btn-gold btn-block">Discuss Opportunity</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">What We Offer</div>
+        <h2>Production Services</h2>
+        <p>Full-service production support across film, music, and commercial work — on Super-16mm film stock and/or HD format.</p>
+      </div>
+
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M3 7l3-4h4l-2 4M11 7l3-4h4l-2 4"/></svg></div>
+          <h3>Film Production</h3>
+          <p>Feature and short film production from development through final delivery, on film or HD format.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div>
+          <h3>Music Video Production</h3>
+          <p>Concept-to-delivery music video production for artists and labels, shot with a cinematic eye.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div>
+          <h3>Commercial Production</h3>
+          <p>Brand and advertising production handled with the same craft and care as feature work.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.5"/><circle cx="17" cy="14" r="3.5"/></svg></div>
+          <h3>Casting &amp; Crew Support</h3>
+          <p>Script breakdown, casting services, SAG representation, and full production crew coordination.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18l5-5-5-5M11 18h9"/></svg></div>
+          <h3>Editing &amp; Post-Production</h3>
+          <p>Professional editing using Final Cut Pro and Avid Media Composer, from rough cut to final master.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h2l2 6 4-16 3 12 2-6h5"/></svg></div>
+          <h3>Film Scoring &amp; Music Production</h3>
+          <p>Original scoring and music production using Pro Tools, Ableton Live, Cubase, and Nuendo.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M13 3v5h5M8 13h8M8 17h5"/></svg></div>
+          <h3>Script &amp; Project Development</h3>
+          <p>Development support for original screenplays moving toward production and funding.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1.5"/><path d="M6 6v12M18 6v12"/></svg></div>
+          <h3>Trailer Production</h3>
+          <p>Trailer cuts and promotional edits built to give every project a strong theatrical introduction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRAILERS ============ -->
+  <section id="trailers" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Now Screening</div>
+        <h2>Trailers</h2>
+        <p>Watch trailers from completed Maximal Entertainment productions.</p>
+      </div>
+
+      <div class="trailer-featured">
+        <div class="trailer-screen">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <span class="placeholder-tag">Trailer Placeholder</span>
+        </div>
+        <div class="trailer-info">
+          <div class="eyebrow">Featured Trailer</div>
+          <h3>DOUB6</h3>
+          <p>2022 &middot; Feature Film &middot; Production: Maximal Entertainment, LLC</p>
+          <a href="#" class="btn btn-gold" style="width:fit-content;">Watch Trailer</a>
+        </div>
+      </div>
+
+      <div class="trailer-grid">
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>MIAMI 13</h4>
+            <div class="yr">2013</div>
+            <div class="credit">Production: Maximal Entertainment, LLC</div>
+            <a href="#" class="btn btn-ghost btn-sm btn-block">Watch Trailer</a>
+          </div>
+        </div>
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>BAGHDAD</h4>
+            <div class="yr">2011</div>
+            <div class="credit">Production: Maximal Entertainment, LLC</div>
+            <a href="#" class="btn btn-ghost btn-sm btn-block">Watch Trailer</a>
+          </div>
+        </div>
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>THE FORGOTTEN FATHER</h4>
+            <div class="yr">2009</div>
+            <div class="credit">Production: Maximal Entertainment, LLC</div>
+            <a href="#" class="btn btn-ghost btn-sm btn-block">Watch Trailer</a>
+          </div>
+        </div>
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>BRIANNA</h4>
+            <div class="yr">2008</div>
+            <div class="credit">Production: Maximal Entertainment, LLC</div>
+            <a href="#" class="btn btn-ghost btn-sm btn-block">Watch Trailer</a>
+          </div>
+        </div>
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>DISTURBED</h4>
+            <div class="yr">2007</div>
+            <div class="credit">Production: Maximal Entertainment, LLC</div>
+            <a href="#" class="btn btn-ghost btn-sm btn-block">Watch Trailer</a>
+          </div>
+        </div>
+        <div class="trailer-card">
+          <div class="trailer-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="trailer-card-body">
+            <h4>WITH'SIN</h4>
+            <div class="yr">In Development</div>
+            <div class="credit">Teaser planned upon funding</div>
+            <a href="#funding" class="btn btn-ghost btn-sm btn-block">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MUSIC ============ -->
+  <section id="music" class="section music-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Music Division</div>
+        <h2>Music &amp; Sound</h2>
+        <p>Maximal Entertainment's growing music division supports film scoring, original music production, and music-driven creative projects.</p>
+      </div>
+      <div class="music-grid">
+        <div class="music-card"><span class="note">♪</span><h3>Film Scoring</h3><p>Original scores composed to match the tone and pacing of each production.</p></div>
+        <div class="music-card"><span class="note">♫</span><h3>Music Production</h3><p>Full music production using Pro Tools, Ableton Live, Cubase, and Nuendo.</p></div>
+        <div class="music-card"><span class="note">≈</span><h3>Sound Design</h3><p>Sound design and audio post-production built for theatrical and broadcast standards.</p></div>
+        <div class="music-card"><span class="note">▷</span><h3>Music Videos</h3><p>Cinematic music video production for artists, labels, and independent musicians.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAREERS ============ -->
+  <section id="careers" class="section">
+    <div class="wrap">
+      <div class="careers-band">
+        <div class="careers-text">
+          <h2>Creative Collaboration</h2>
+          <p>Maximal Entertainment welcomes actors, crew members, producers, writers, music artists, and collaborators to connect for future opportunities.</p>
+        </div>
+        <a href="#contact" class="btn btn-gold" id="careersCta">Submit Your Interest</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section section-alt">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="eyebrow">Get in Touch</div>
+          <h2>Contact the Production Team</h2>
+          <p>Reach out about productions, funding opportunities, casting, or general inquiries — Maximal Entertainment, LLC.</p>
+
+          <div class="contact-block">
+            <div class="label">Address</div>
+            <div class="value">7491 Parkside Lane<br>Margate, FL 33063</div>
+          </div>
+          <div class="contact-block">
+            <div class="label">Phone</div>
+            <div class="value">FL: <a href="tel:9543241794">954.324.1794</a> &nbsp;|&nbsp; <a href="tel:9543426212">954.342.6212</a><br>LA: <a href="tel:3233743924">323.374.3924</a></div>
+          </div>
+          <div class="contact-block">
+            <div class="label">Fax</div>
+            <div class="value">561.372.7133</div>
+          </div>
+          <div class="contact-block">
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:info@maximalentertainment.com">info@maximalentertainment.com</a></div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="field">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+              </div>
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+              <div class="field">
+                <label for="inquiryType">Inquiry Type</label>
+                <select id="inquiryType" name="inquiryType">
+                  <option value="Film Production">Film Production</option>
+                  <option value="Music Video">Music Video</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Funding / Investment">Funding / Investment</option>
+                  <option value="Casting / Careers">Casting / Careers</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold btn-block">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-name">MAXIMAL <span>ENTERTAINMENT</span></span>
+        <p>Formerly NiterBoys Entertainment. Independent film production, creative media, and entertainment storytelling based in South Florida.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#films">Films</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#trailers">Trailers</a></li>
+          <li><a href="#funding">Funding</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#careers">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>7491 Parkside Lane, Margate, FL 33063</li>
+          <li><a href="tel:9543241794">954.324.1794</a></li>
+          <li><a href="tel:3233743924">323.374.3924</a></li>
+          <li><a href="mailto:info@maximalentertainment.com">info@maximalentertainment.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Maximal Entertainment, LLC. All rights reserved.</p>
+      <p>Formerly NiterBoys Entertainment</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.classList.toggle('active', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Careers CTA pre-selects "Casting / Careers" in the contact form
+  document.getElementById('careersCta').addEventListener('click', () => {
+    const inquirySelect = document.getElementById('inquiryType');
+    if (inquirySelect) inquirySelect.value = 'Casting / Careers';
+  });
+
+  // Contact form demo submit
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Thank you. This prototype form is for demonstration only.');
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
